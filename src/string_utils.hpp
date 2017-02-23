@@ -1,11 +1,12 @@
-#ifndef STRING_UTILS
-#define STRING_UTILS
+#ifndef CPP_BASE_STRING_UTILS_HPP
+#define CPP_BASE_STRING_UTILS_HPP
+
 #include <string.h>
+#include <fstream>
 #include <string>
 #include <vector>
-#include <fstream>
 
-/// add new functionality to std::to_string
+// add new functionality to std::to_string
 namespace std {
 inline std::string to_string(const std::string& t) {
     return t;
@@ -24,17 +25,17 @@ inline std::string to_string(const char* t) {
 
     return result;
 }
-}; ///  namespace std
+};  ///  namespace std
 
-namespace StringUtils {
+namespace Base {
 /// optimise for multime recursive calls to StrCat if used like to_string(T) + StrCat(args...)
 /// last element is apended n - 1 time
-template<typename T>
+template <typename T>
 void __StrCat(std::string& targetResult, const T t) {
     targetResult += std::to_string(t);
 }
 
-template<typename T, typename... Args>
+template <typename T, typename... Args>
 void __StrCat(std::string& targetResult, const T t, const Args... args) {
     targetResult += std::to_string(t);
     __StrCat(targetResult, args...);
@@ -42,12 +43,12 @@ void __StrCat(std::string& targetResult, const T t, const Args... args) {
 
 /// Concatenates all args into a big string, calling to_string on them
 /// see to_string added functionality above
-template<typename T>
+template <typename T>
 std::string StrCat(const T t) {
     return std::to_string(t);
 }
 
-template<typename T, typename... Args>
+template <typename T, typename... Args>
 std::string StrCat(const T t, const Args... args) {
     std::string result = "";
     __StrCat(result, t, args...);
@@ -186,7 +187,7 @@ std::string ReadFromFile(const std::string& path) {
 
         fin.seekg(0, fin.beg);
 
-        fin.read(& file_information[0], file_information.size());
+        fin.read(&file_information[0], file_information.size());
         fin.close();
     } else {
         return "";
@@ -195,6 +196,6 @@ std::string ReadFromFile(const std::string& path) {
     return file_information;
 }
 
-}; /// namespace StringUtils
+};  /// namespace Base
 
 #endif

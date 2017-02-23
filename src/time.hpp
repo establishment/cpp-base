@@ -1,6 +1,5 @@
-#ifndef BASE_TIME
-#define BASE_TIME
-
+#ifndef CPP_BASE_TIME_HPP
+#define CPP_BASE_TIME_HPP
 
 #include <time.h>
 

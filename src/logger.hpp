@@ -1,12 +1,13 @@
-#pragma once
+#ifndef CPP_BASE_LOGGER_HPP
+#define CPP_BASE_LOGGER_HPP
 
 #include <execinfo.h>
+#include <fcntl.h>
 #include <stdarg.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
-#include <fcntl.h>
 
 #include <functional>
 #include <string>
@@ -16,7 +17,10 @@
 #define UNUSED __attribute__((unused))
 #define GENERATE_PRINTF_WARNINGS __attribute__((format(printf, 1, 2)))
 
-namespace Logger {
+namespace Base {
+
+void NONRET __attribute__((format(printf, 1, 2))) Die(const char* msg, ...);
+
 int verbose_level = 0;
 int msg_fd = 2;
 int die_fd = 2;
@@ -27,8 +31,8 @@ static const int kDieStackSize = 50;
 std::function<void(std::string)> DieExitFunction;
 
 std::vector<std::string> GetCallStack() {
-    void* void_stack[kDieStackSize]; // stack len
-    
+    void* void_stack[kDieStackSize];  // stack len
+
     size_t stack_size = backtrace(void_stack, sizeof(void_stack));
     char** string_stack = backtrace_symbols(void_stack, stack_size);
 
@@ -43,7 +47,7 @@ std::vector<std::string> GetCallStack() {
 
 void xwrite(int fd, const char* head, int remaining) {
     while (1) {
-        int len = write(fd, head, remaining); /// hope it doesn't crash somehow
+        int len = write(fd, head, remaining);  /// hope it doesn't crash somehow
         if (len == -1) {
             if (errno == EINTR) {
                 continue;
@@ -77,7 +81,7 @@ std::string EscapeQuotes(const char* msg) {
 
 void NONRET Die(const char* field_name, const char* msg, bool is_json_object) {
     std::string json = "{";
-        
+
     json += "\"" + std::string(field_name) + "\":";
     if (is_json_object) {
         json += std::string(msg);
@@ -87,29 +91,29 @@ void NONRET Die(const char* field_name, const char* msg, bool is_json_object) {
 
     json += ",\n";
     json += "\"callstack\":[\n";
-    
+
     auto call_stack = GetCallStack();
     for (auto& itr : call_stack) {
         json += "    \"" + itr + "\",\n";
     }
 
     if (call_stack.size()) {
-        json.pop_back(); // remove last \n
-        json.pop_back(); // remove last ,
+        json.pop_back();  // remove last \n
+        json.pop_back();  // remove last ,
         json += "\n";
     }
 
     json += "]}\n";
-    
+
     /// write errors to die_fd first
-    xwrite(die_fd, json.c_str(), json.size()); 
+    xwrite(die_fd, json.c_str(), json.size());
 
     if (DieExitFunction) {
         DieExitFunction(json);
     }
 
     close(die_fd);
-    exit(2);  
+    exit(2);
 }
 
 /* Report an error of the sandbox itself */
@@ -160,5 +164,7 @@ void __attribute__((format(printf, 1, 2))) Msg(const char* msg, ...) {
         fsync(msg_fd);
     }
 }
-}  // namespace Logger
 
+}  // namespace Base
+
+#endif
