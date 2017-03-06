@@ -85,26 +85,26 @@ std::vector<std::string> ParseCommandLine(const std::string& txt) {
     bool escaped = false;
 
     for (int i = 0; i < (int)txt.size(); i += 1) {
-        if (quotes) {
-            if (txt[i] == quote_char and txt[i - 1] != '/') {
-                quotes = false;
-            } else {
-                current_txt += txt[i];
-            }
-            continue;
-        }
-
         if (not escaped and txt[i] == '\\') {
             escaped = true;
             continue;
         }
-
+ 
         if (escaped) {
             if (not NeedsEscape(txt[i])) {
                 current_txt += '\\';
             }
             current_txt += txt[i];
             escaped = false;
+            continue;
+        }
+
+        if (quotes) {
+            if (txt[i] == quote_char) {
+                quotes = false;
+            } else {
+                current_txt += txt[i];
+            }
             continue;
         }
 
