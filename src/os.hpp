@@ -70,7 +70,11 @@ int RMTreeHelper(const char* fpath, const struct stat* sb, int typeflag UNUSED, 
             Die("Cannot unlink %s: %m", fpath);
         }
     }
+#ifdef __linux__
     return FTW_CONTINUE;
+#else
+    return 0;
+#endif
 }
 
 void RMTree(const char* path) {
@@ -84,7 +88,11 @@ int ChownTreeHelper(const char* fpath, const struct stat* sb UNUSED, int typefla
     if (lchown(fpath, chownUid, chownGid) < 0) {
         Die("Cannot chown %s: %m", fpath);
     } else {
+#ifdef __linux__
         return FTW_CONTINUE;
+#else
+        return 0;
+#endif
     }
 }
 
@@ -109,6 +117,7 @@ void Chmod(const std::string& command) {
 }
 
 void Setfacl(const std::string& command) {
+#ifdef __linux__
     if (access("/usr/bin/setfacl", F_OK) == -1) {
         Die("setfacl is not present on system.\n apt install acl");
     }
@@ -143,6 +152,9 @@ void Setfacl(const std::string& command) {
     if (err != 0) {
         Die("Setfacl %s\n%m\n", command.c_str());
     }
+#else
+    Msg("Setfacl is only available on linux. Sorry about that.");
+#endif
 }
 
 }  // namespace Base

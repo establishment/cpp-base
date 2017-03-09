@@ -5,7 +5,7 @@
 
 /// Precise wall time clock
 struct PreciseTimer {
-    PreciseTimer(int clockType = CLOCK_REALTIME) {
+    PreciseTimer(clockid_t clockType = CLOCK_REALTIME) {
         this->clockType = clockType;
         timespec res;
         clock_getres(clockType, &res);
@@ -13,7 +13,7 @@ struct PreciseTimer {
         start();
     }
 
-    int clockType;
+    clockid_t clockType;
     long long resolution;
     timespec start_time;
 
