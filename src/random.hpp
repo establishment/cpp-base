@@ -90,4 +90,6 @@ struct Partition {
 
 }  // namespace base
 
-#endif
+#include "random.tpp"
+
+#endif // CPP_BASE_RANDOM_HPP

@@ -1,3 +1,6 @@
+#ifndef CPP_BASE_DEBUG_HPP
+#define CPP_BASE_DEBUG_HPP
+
 #include <iostream>
 #include <map>
 #include <vector>
@@ -32,29 +35,7 @@ std::ostream& operator<<(std::ostream& out, const std::vector<T>& rhs) {
     return out;
 }
 
-void Print(const char*& txt, const char* _txt) {
-    std::string name = "";
-    while (*txt != '\0' and *txt != ',') {
-        name += *txt;
-        txt++;
-    }
-
-    while (*txt != '\0' and (*txt == ',' or *txt == ' ')) {
-        txt++;
-    }
-
-    if (name == "\"\\n\"") {
-        std::cerr << "\n";
-        return ;
-    }
-
-    std::string txt_ = _txt;
-    if (name.substr(1, txt_.size()) == txt_) {
-        std::cerr << txt_ << '\n';
-    } else {
-        std::cerr << name << " = " << txt_ << '\t';
-    }
-}
+void Print(const char*& txt, const char* _txt);
 
 template <typename T>
 void Print(const char*& txt, T t) {
@@ -87,4 +68,6 @@ void __debugE(const char* txt, Args... args) {
     _debug(txt, args...);
 }
 
-}
+} // namespace Base
+
+#endif // CPP_BASE_DEBUG_HPP

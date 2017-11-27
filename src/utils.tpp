@@ -1,20 +1,16 @@
-#ifndef CPP_BASE_UTILS_CPP
-#define CPP_BASE_UTILS_CPP
-
 #include <cassert>
 
 #include <algorithm>
 #include <vector>
 
 #include "logger.hpp"
-#include "utils.hpp"
 
 namespace Base {
 
 template <typename Type>
 std::vector<Type> Range(Type left, Type right, Type step) {
     assert(step != static_cast<Type>(0));
-    
+
     if (left == right) {
         return {};
     }
@@ -134,5 +130,3 @@ Container&& Unique(Container&& container) {
 }
 
 }  // namespace base
-
-#endif

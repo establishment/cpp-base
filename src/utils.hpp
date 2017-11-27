@@ -3,6 +3,10 @@
 
 #include <vector>
 
+#define NONRET __attribute__((noreturn))
+#define UNUSED __attribute__((unused))
+#define GENERATE_PRINTF_WARNINGS __attribute__((format(printf, 1, 2)))
+
 namespace Base {
 
 // [WARNING] Does not yield
@@ -66,4 +70,6 @@ Container&& Unique(Container&& container);
 
 }  // namespace base
 
-#endif
+#include "utils.tpp"
+
+#endif // CPP_BASE_UTILS_HPP
