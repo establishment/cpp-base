@@ -13,14 +13,14 @@ std::string to_string(const char& c);
 std::string to_string(const char* t);
 };  //  namespace std
 
-namespace Base {
+namespace base {
 // optimise for multime recursive calls to StrCat if used like to_string(T) + StrCat(args...)
 // last element is apended n - 1 time
 template <typename T>
-void __StrCat(std::string& target_result, const T t);
+void StrCatHelper(std::string& targetResult, const T t);
 
 template <typename T, typename... Args>
-void __StrCat(std::string& target_result, const T t, const Args... args);
+void StrCatHelper(std::string& targetResult, const T t, const Args... args);
 
 // Concatenates all args into a big string, calling to_string on them
 // see to_string added functionality above
@@ -42,8 +42,8 @@ std::string EscapeString(const std::string& content);
 
 std::string ReadFromFile(const std::string& path);
 
-};  // namespace Base
+};  // namespace base
 
-#include "string_utils.tpp"
+#include "StringUtils.tpp"
 
 #endif // CPP_BASE_STRING_UTILS_HPP

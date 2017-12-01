@@ -1,4 +1,4 @@
-#include "os.hpp"
+#include "Os.hpp"
 
 #include <fcntl.h>
 #include <ftw.h>
@@ -7,13 +7,44 @@
 #include <sys/types.h>
 #include <unistd.h>
 
-#include "logger.hpp"
-#include "string_utils.hpp"
+#include "Logger.hpp"
+#include "Macros.hpp"
+#include "StringUtils.hpp"
 
-int ChownTreeHelper(const char* fpath, const struct stat* sb UNUSED, int typeflag UNUSED, struct FTW* ftwbuf UNUSED);
-int RMTreeHelper(const char* fpath, const struct stat* sb, int typeflag UNUSED, struct FTW* ftwbuf UNUSED);
+namespace base {
 
-namespace Base {
+uid_t chownUid;
+gid_t chownGid;
+
+int ChownTreeHelper(const char* fpath, const struct stat* sb UNUSED, int typeflag UNUSED, struct FTW* ftwbuf UNUSED) {
+    if (lchown(fpath, chownUid, chownGid) < 0) {
+        Die("Cannot chown %s: %m", fpath);
+    } else {
+#ifdef __linux__
+        return FTW_CONTINUE;
+#else
+        return 0;
+#endif
+    }
+}
+
+int RMTreeHelper(const char* fpath, const struct stat* sb, int typeflag UNUSED, struct FTW* ftwbuf UNUSED) {
+    if (S_ISDIR(sb->st_mode)) {
+        if (rmdir(fpath) < 0) {
+            Die("Cannot rmdir %s: %m", fpath);
+        }
+    } else {
+        if (unlink(fpath) < 0) {
+            Die("Cannot unlink %s: %m", fpath);
+        }
+    }
+#ifdef __linux__
+    return FTW_CONTINUE;
+#else
+    return 0;
+#endif
+}
+
 int DirExists(const std::string& path) {
     struct stat st;
     return (stat(path.c_str(), &st) >= 0 && S_ISDIR(st.st_mode));
@@ -23,8 +54,8 @@ int PathBeginsWith(const std::string& path, const std::string& with) {
     return with == path.substr(0, with.size());
 }
 
-void MakeDir(const std::string& s_path, int mode) {
-    char* path = strdup(s_path.c_str());
+void MakeDir(const std::string& sPath, int mode) {
+    char* path = strdup(sPath.c_str());
 
     int len = strlen(path);
 
@@ -62,12 +93,9 @@ void RMTree(const char* path) {
     nftw(path, RMTreeHelper, 32, FTW_MOUNT | FTW_PHYS | FTW_DEPTH);
 }
 
-uid_t chown_uid;
-gid_t chown_gid;
-
 void ChownTree(const char* path, uid_t uid, gid_t gid) {
-    chown_uid = uid;
-    chown_gid = gid;
+    chownUid = uid;
+    chownGid = gid;
     nftw(path, ChownTreeHelper, 32, FTW_MOUNT | FTW_PHYS);
 }
 
@@ -93,13 +121,11 @@ void Setfacl(const std::string& command) {
     /// create a file lock so no 2 processes set the acl
     /// at the same time because it crashes sometime.
     /// magic.
-    /* l_type   l_whence  l_start  l_len  l_pid   */
-    struct flock fl = {F_WRLCK, SEEK_SET, 0, 0, getpid()};
+                    /*  l_type      l_whence    l_start l_len   l_pid   */
+    struct flock fl = { F_WRLCK,    SEEK_SET,   0,      0,      getpid()};
     int fd;
 
-    fl.l_pid = getpid();
-
-    if ((fd = open("setfacl_lock", O_RDWR | O_CREAT | O_TRUNC, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH)) == -1) {
+    if ((fd = open("setfaclLock", O_RDWR | O_CREAT | O_TRUNC, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH)) == -1) {
         perror("open");
         exit(1);
     }
@@ -126,33 +152,4 @@ void Setfacl(const std::string& command) {
 #endif
 }
 
-}  // namespace Base
-
-int ChownTreeHelper(const char* fpath, const struct stat* sb UNUSED, int typeflag UNUSED, struct FTW* ftwbuf UNUSED) {
-    if (lchown(fpath, Base::chown_uid, Base::chown_gid) < 0) {
-        Base::Die("Cannot chown %s: %m", fpath);
-    } else {
-#ifdef __linux__
-        return FTW_CONTINUE;
-#else
-        return 0;
-#endif
-    }
-}
-
-int RMTreeHelper(const char* fpath, const struct stat* sb, int typeflag UNUSED, struct FTW* ftwbuf UNUSED) {
-    if (S_ISDIR(sb->st_mode)) {
-        if (rmdir(fpath) < 0) {
-            Base::Die("Cannot rmdir %s: %m", fpath);
-        }
-    } else {
-        if (unlink(fpath) < 0) {
-            Base::Die("Cannot unlink %s: %m", fpath);
-        }
-    }
-#ifdef __linux__
-    return FTW_CONTINUE;
-#else
-    return 0;
-#endif
-}
+}  // namespace base

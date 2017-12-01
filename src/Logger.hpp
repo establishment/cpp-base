@@ -5,9 +5,9 @@
 #include <string>
 #include <vector>
 
-#include "utils.hpp"
+#include "Macros.hpp"
 
-namespace Base {
+namespace base {
 
 void NONRET __attribute__((format(printf, 1, 2))) Die(const char* msg, ...);
 
@@ -19,17 +19,17 @@ void xwrite(int fd, const char* head, int remaining);
 
 std::string EscapeQuotes(const char* msg);
 
-void NONRET Die(const char* field_name, const char* msg, bool is_json_object);
+void NONRET Die(const char* fieldName, const char* msg, bool isJsonObject);
 
 /* Report an error of the sandbox itself */
 void NONRET __attribute__((format(printf, 1, 2))) Die(const char* msg, ...);
 
-void DieLogToFile(const std::string& file_path);
+void DieLogToFile(const std::string& filePath);
 
 void __attribute__((format(printf, 2, 3))) Msg(int verbosity, const char* msg, ...);
 
 void __attribute__((format(printf, 1, 2))) Msg(const char* msg, ...);
 
-}  // namespace Base
+}  // namespace base
 
 #endif // CPP_BASE_LOGGER_HPP

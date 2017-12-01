@@ -1,19 +1,15 @@
 #ifndef CPP_BASE_OS_HPP
 #define CPP_BASE_OS_HPP
 
-#include <sys/stat.h>
-
 #include <string>
 
-#include "utils.hpp"
 
-
-namespace Base {
+namespace base {
 int DirExists(const std::string& path);
 
 int PathBeginsWith(const std::string& path, const std::string& with);
 
-void MakeDir(const std::string& s_path, int mode = 0777);
+void MakeDir(const std::string& sPath, int mode = 0777);
 
 void Touch(std::string path);
 
@@ -27,6 +23,6 @@ void Chmod(const std::string& command);
 
 void Setfacl(const std::string& command);
 
-}  // namespace Base
+}  // namespace base
 
 #endif // CPP_BASE_OS_HPP

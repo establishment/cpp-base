@@ -3,9 +3,9 @@
 #include <algorithm>
 #include <vector>
 
-#include "logger.hpp"
+#include "Random.hpp"
 
-namespace Base {
+namespace base {
 
 template <typename Type>
 std::vector<Type> Range(Type left, Type right, Type step) {
@@ -62,9 +62,9 @@ std::vector<Type> xRange(Type left, Type right) {
 // RandomShuffle
 template <typename LinearIterator>
 void RandomShuffle(LinearIterator begin, LinearIterator end) {
-    int num_elements = std::distance(begin, end);
-    for (int itr = 0; itr < num_elements; itr += 1) {
-        int oth = rand() % (num_elements - itr) + itr;
+    int numElements = std::distance(begin, end);
+    for (int itr = 0; itr < numElements; itr += 1) {
+        int oth = RandUInt32(numElements - itr) + itr;
         std::swap(*(begin + itr), *(begin + oth));
     }
 }
