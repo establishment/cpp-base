@@ -9,6 +9,7 @@
 #include "Random.hpp"
 #include "StringUtils.hpp"
 #include "Time.hpp"
+#include "Uncopyable.hpp"
 #include "Utils.hpp"
 
 #endif // CPP_BASE_HPP
