@@ -162,4 +162,4 @@ void __attribute__((format(printf, 1, 2))) Msg(const char* msg, ...) {
     }
 }
 
-}  // namespace base
+} // namespace base

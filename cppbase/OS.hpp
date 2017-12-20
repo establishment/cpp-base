@@ -1,5 +1,5 @@
-#ifndef CPP_BASE_OS_HPP
-#define CPP_BASE_OS_HPP
+#ifndef CPPBASE_OS_HPP
+#define CPPBASE_OS_HPP
 
 #include <string>
 
@@ -25,4 +25,8 @@ void Setfacl(const std::string& command);
 
 }  // namespace base
 
-#endif // CPP_BASE_OS_HPP
+#ifndef cppbaseuselib
+#include "OS.cpp"
+#endif
+
+#endif // CPPBASE_OS_HPP

@@ -1,5 +1,5 @@
-#ifndef CPP_BASE_STRING_UTILS_HPP
-#define CPP_BASE_STRING_UTILS_HPP
+#ifndef CPPBASE_STRING_UTILS_HPP
+#define CPPBASE_STRING_UTILS_HPP
 
 #include <string>
 #include <vector>
@@ -46,4 +46,8 @@ std::string ReadFromFile(const std::string& path);
 
 #include "StringUtils.tpp"
 
-#endif // CPP_BASE_STRING_UTILS_HPP
+#ifndef cppbaseuselib
+#include "StringUtils.cpp"
+#endif
+
+#endif // CPPBASE_STRING_UTILS_HPP

@@ -1,5 +1,5 @@
-#ifndef CPP_BASE_HPP
-#define CPP_BASE_HPP
+#ifndef CPPBASE_HPP
+#define CPPBASE_HPP
 
 #include "Debug.hpp"
 #include "Logger.hpp"
@@ -12,4 +12,4 @@
 #include "Uncopyable.hpp"
 #include "Utils.hpp"
 
-#endif // CPP_BASE_HPP
+#endif // CPPBASE_HPP

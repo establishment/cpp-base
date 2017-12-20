@@ -1,8 +1,8 @@
-#ifndef CPP_BASE_MACROS
-#define CPP_BASE_MACROS
+#ifndef CPPBASE_MACROS_HPP
+#define CPPBASE_MACROS_HPP
 
 #define NONRET __attribute__((noreturn))
 #define UNUSED __attribute__((unused))
 #define GENERATE_PRINTF_WARNINGS __attribute__((format(printf, 1, 2)))
 
-#endif
+#endif // CPPBASE_MACROS_HPP

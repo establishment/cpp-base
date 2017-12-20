@@ -1,5 +1,5 @@
-#ifndef CPP_BASE_DEBUG_HPP
-#define CPP_BASE_DEBUG_HPP
+#ifndef CPPBASE_DEBUG_HPP
+#define CPPBASE_DEBUG_HPP
 
 #include <ostream>
 #include <map>
@@ -33,4 +33,8 @@ void DebugSplitPrint(const char* allNames, Args... args);
 
 #include "Debug.tpp"
 
-#endif // CPP_BASE_DEBUG_HPP
+#ifndef cppbaseuselib
+#include "Debug.cpp"
+#endif
+
+#endif // CPPBASE_DEBUG_HPP

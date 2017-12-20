@@ -51,4 +51,5 @@ std::string StrCat(const T t, const Args... args) {
     StrCatHelper(result, t, args...);
     return result;
 }
+
 };  // namespace base

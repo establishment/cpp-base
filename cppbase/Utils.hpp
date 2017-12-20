@@ -1,5 +1,5 @@
-#ifndef CPP_BASE_UTILS_HPP
-#define CPP_BASE_UTILS_HPP
+#ifndef CPPBASE_UTILS_HPP
+#define CPPBASE_UTILS_HPP
 
 #include <vector>
 
@@ -68,4 +68,4 @@ Container&& Unique(Container&& container);
 
 #include "Utils.tpp"
 
-#endif // CPP_BASE_UTILS_HPP
+#endif // CPPBASE_UTILS_HPP

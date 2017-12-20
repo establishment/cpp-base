@@ -1,5 +1,5 @@
-#ifndef CPP_BASE_RANDOM_HPP
-#define CPP_BASE_RANDOM_HPP
+#ifndef CPPBASE_RANDOM_HPP
+#define CPPBASE_RANDOM_HPP
 
 #include <functional>
 #include <vector>
@@ -135,4 +135,8 @@ struct Partition {
 
 #include "Random.tpp"
 
-#endif // CPP_BASE_RANDOM_HPP
+#ifndef cppbaseuselib
+#include "Random.cpp"
+#endif
+
+#endif // CPPBASE_RANDOM_HPP

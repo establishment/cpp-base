@@ -1,5 +1,5 @@
-#ifndef BASE_UNCOPYABLE_HPP
-#define BASE_UNCOPYABLE_HPP
+#ifndef CPPBASE_UNCOPYABLE_HPP
+#define CPPBASE_UNCOPYABLE_HPP
 
 namespace base {
 
@@ -15,4 +15,4 @@ class Uncopyable  {
 
 } // namespace base
 
-#endif // BASE_UNCOPYABLE_HPP
+#endif // CPPBASE_UNCOPYABLE_HPP

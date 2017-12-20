@@ -1,5 +1,5 @@
-#ifndef CPP_BASE_LOGGER_HPP
-#define CPP_BASE_LOGGER_HPP
+#ifndef CPPBASE_LOGGER_HPP
+#define CPPBASE_LOGGER_HPP
 
 #include <functional>
 #include <string>
@@ -32,4 +32,8 @@ void __attribute__((format(printf, 1, 2))) Msg(const char* msg, ...);
 
 }  // namespace base
 
-#endif // CPP_BASE_LOGGER_HPP
+#ifndef cppbaseuselib
+#include "Logger.cpp"
+#endif
+
+#endif // CPPBASE_LOGGER_HPP

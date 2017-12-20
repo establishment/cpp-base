@@ -1,5 +1,5 @@
-#ifndef CPP_BASE_TIME_HPP
-#define CPP_BASE_TIME_HPP
+#ifndef CPPBASE_TIME_HPP
+#define CPPBASE_TIME_HPP
 
 #include <time.h>
 
@@ -24,4 +24,8 @@ class PreciseTimer {
 
 } // namespace base
 
-#endif // CPP_BASE_TIME_HPP
+#ifndef cppbaseuselib
+#include "Time.cpp"
+#endif
+
+#endif // CPPBASE_TIME_HPP

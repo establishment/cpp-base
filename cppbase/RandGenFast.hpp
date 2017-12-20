@@ -1,5 +1,5 @@
-#ifndef CPP_BASE_RAND_GEN_FAST_HPP
-#define CPP_BASE_RAND_GEN_FAST_HPP
+#ifndef CPPBASE_RAND_GEN_FAST_HPP
+#define CPPBASE_RAND_GEN_FAST_HPP
 
 namespace base {
 
@@ -68,5 +68,9 @@ class RandGenFast {
 };
 
 }; // namespace base
+
+#ifndef cppbaseuselib
+#include "RandGenFast.cpp"
+#endif
 
 #endif
