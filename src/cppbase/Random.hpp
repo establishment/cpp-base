@@ -4,7 +4,11 @@
 #include <functional>
 #include <vector>
 
+#include "RandGenFast.hpp"
+
 namespace base {
+
+extern RandGenFast rng;
 
 // simple specializations
 // return [0, valueMax]
@@ -119,6 +123,16 @@ std::vector<Type> UniqueNumbers(Type right, int numElements);
 
 template<typename Type>
 std::vector<Type> xUniqueNumbers(Type right, int numElements);
+
+// good deterministic random shuffle
+template <typename LinearIterator>
+void RandomShuffle(LinearIterator begin, LinearIterator end, RandGenFast& = rng);
+
+template <typename Container>
+Container& RandomShuffle(Container& container, RandGenFast& = rng);
+
+template <typename Container>
+Container&& RandomShuffle(Container&& container, RandGenFast& rng);
 
 // equivalent to UniqueNumbers(startElement, numElements + startElement);
 std::vector<int> RandomPermutation(int numElements, int startElement=0);

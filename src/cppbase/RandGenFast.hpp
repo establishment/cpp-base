@@ -12,6 +12,8 @@ class RandGenFast {
 
     RandGenFast();
 
+    RandGenFast(unsigned int x);
+
     RandGenFast(unsigned int x, unsigned int y, unsigned int z);
 
     // primitives

@@ -59,28 +59,6 @@ std::vector<Type> xRange(Type left, Type right) {
     return Range(left, static_cast<Type>(static_cast<Type>(1) + right), static_cast<Type>(1));
 }
 
-// RandomShuffle
-template <typename LinearIterator>
-void RandomShuffle(LinearIterator begin, LinearIterator end) {
-    int numElements = std::distance(begin, end);
-    for (int itr = 0; itr < numElements; itr += 1) {
-        int oth = RandUInt32(numElements - itr) + itr;
-        std::swap(*(begin + itr), *(begin + oth));
-    }
-}
-
-template <typename Container>
-Container& RandomShuffle(Container& container) {
-    RandomShuffle(container.begin(), container.end());
-    return container;
-}
-
-template <typename Container>
-Container&& RandomShuffle(Container&& container) {
-    RandomShuffle(container.begin(), container.end());
-    return container;
-}
-
 // Sort
 template <typename LinearIterator>
 void Sort(LinearIterator begin, LinearIterator end) {

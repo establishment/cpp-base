@@ -27,16 +27,6 @@ std::vector<Type> xRange(Type left, Type right);
 template <typename Type>
 std::vector<Type> xRange(Type right);
 
-// good deterministic random shuffle
-template <typename LinearIterator>
-void RandomShuffle(LinearIterator begin, LinearIterator end);
-
-template <typename Container>
-Container& RandomShuffle(Container& container);
-
-template <typename Container>
-Container&& RandomShuffle(Container&& container);
-
 // Sort
 template <typename LinearIterator>
 void Sort(LinearIterator begin, LinearIterator end);

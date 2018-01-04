@@ -5,6 +5,9 @@ namespace base {
 RandGenFast::RandGenFast() : x(3369674297), y(1430037335), z(3845079233) {
 }
 
+RandGenFast::RandGenFast(unsigned int x) : x(x), y(x ^ 3040696820), z(x ^ 2367134250) {
+}
+
 RandGenFast::RandGenFast(unsigned int x, unsigned int y, unsigned int z) : x(x), y(y), z(z) {
 }
 

@@ -1,3 +1,5 @@
+#include "Random.hpp"
+
 #include <cassert>
 #include <cmath>
 #include <algorithm>
@@ -31,6 +33,28 @@ Type RandLogScaled(Type left, Type right) {
 template <typename Type>
 Type xRandLogScaled(Type left, Type right) {
     return RandLog<Type>((Type)1, right - left + (Type)2) + (left - 1);
+}
+
+// RandomShuffle
+template <typename LinearIterator>
+void RandomShuffle(LinearIterator begin, LinearIterator end, RandGenFast& gen) {
+    int numElements = std::distance(begin, end);
+    for (int itr = 0; itr < numElements; itr += 1) {
+        int oth = gen.uint32(numElements - itr) + itr;
+        std::swap(*(begin + itr), *(begin + oth));
+    }
+}
+
+template <typename Container>
+Container& RandomShuffle(Container& container, RandGenFast& gen) {
+    RandomShuffle(container.begin(), container.end(), gen);
+    return container;
+}
+
+template <typename Container>
+Container&& RandomShuffle(Container&& container, RandGenFast& gen) {
+    RandomShuffle(container.begin(), container.end(), gen);
+    return container;
 }
 
 template <typename Type>
