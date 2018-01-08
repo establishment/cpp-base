@@ -69,7 +69,7 @@ std::vector<Type> UniqueNumbers(Type left, Type right, int numElements,
     result.reserve(numElements);
 
     while (numElements > 0) {
-        int element = std::rand() % (right - left) + left;
+        int element = rand() % (right - left) + left;
         if (not selectedNumbers[element] and validNumber(element)) {
             selectedNumbers[element] = true;
             result.push_back(element);

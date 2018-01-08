@@ -1,6 +1,7 @@
 #ifndef CPPBASE_OS_HPP
 #define CPPBASE_OS_HPP
 
+#include <sys/types.h>
 #include <string>
 
 namespace base {
