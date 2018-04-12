@@ -152,4 +152,12 @@ void Setfacl(const std::string& command) {
 #endif
 }
 
+namespace path {
+
+std::string ParentDir(const std::string &path) {
+    return path.substr(0, path.find_last_of("/\\"));
+}
+
+} // namespace path
+
 }  // namespace base

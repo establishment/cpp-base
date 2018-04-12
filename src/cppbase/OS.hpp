@@ -24,6 +24,12 @@ void Chmod(const std::string& command);
 
 void Setfacl(const std::string& command);
 
+namespace path {
+
+std::string ParentDir(const std::string &path);
+
+} // namespace path
+
 }  // namespace base
 
 #ifndef cppbaseuselib
