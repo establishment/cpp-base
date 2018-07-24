@@ -45,6 +45,11 @@ int RMTreeHelper(const char* fpath, const struct stat* sb, int typeflag UNUSED, 
 #endif
 }
 
+int FileExists(const std::string& path) {
+    struct stat st;
+    return (stat(path.c_str(), &st) >= 0 && S_ISREG(st.st_mode));
+}
+
 int DirExists(const std::string& path) {
     struct stat st;
     return (stat(path.c_str(), &st) >= 0 && S_ISDIR(st.st_mode));

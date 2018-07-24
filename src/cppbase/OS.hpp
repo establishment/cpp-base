@@ -6,6 +6,8 @@
 
 namespace base {
 
+int FileExists(const std::string& path);
+
 int DirExists(const std::string& path);
 
 int PathBeginsWith(const std::string& path, const std::string& with);
