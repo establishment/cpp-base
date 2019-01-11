@@ -8,7 +8,6 @@ set(SOURCE_DIR                "src/")
 set(INCLUDE_DIR               "src/")
 
 set(CMAKE_CXX_STANDARD 14)
-add_definitions(-D${PROJECT_NAME}uselib)
 
 set(LIB_PATH                                   "${CMAKE_CURRENT_SOURCE_DIR}/build/lib")
 set(BIN_PATH                                   "${CMAKE_CURRENT_SOURCE_DIR}/build/bin")
@@ -28,8 +27,8 @@ add_library(${PROJECT_NAME}
     "${SOURCE_DIR}/cppbase/StringUtils.cpp"
     "${SOURCE_DIR}/cppbase/Time.cpp"
 )
-
-target_link_libraries(${PROJECT_NAME} autojson)
+target_compile_definitions(${PROJECT_NAME} PUBLIC ${PROJECT_NAME}uselib)
+target_link_libraries(${PROJECT_NAME} PUBLIC autojson)
 target_include_directories(${PROJECT_NAME} PUBLIC ${INCLUDE_DIR})
 
 # INTERFACE + LIBRARY
